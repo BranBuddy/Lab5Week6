@@ -3,6 +3,8 @@ using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using System.Linq;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -45,10 +47,12 @@ public class PoissonDiscSampler : MonoBehaviour
             if(activeSamples == null)
             {
                 FindASpot();
-            } else
+            } 
+            else
             {
-                
-                Debug.Log("Moving");
+               Vector2[] closetPoint = activeSamples.OrderBy(x => x.x).ToArray();
+
+               agent.transform.position = closetPoint[0];
             }
         }
         
@@ -56,24 +60,22 @@ public class PoissonDiscSampler : MonoBehaviour
 
     void FindASpot()
     {
-        var sampler = new PoissonDiscSampler(5, 5, cellSize);
+        var sampler = new PoissonDiscSampler(100, 100, cellSize);
         foreach(var point in sampler.Samples())
         {
+
             if (vizualizeGizmos)
             {
                 Debug.DrawLine(agent.transform.position, point);
             }
-        }
 
-        foreach(var point in sampler.Samples())
-        {
             if (!CheckVisibility())
             {
                 return;
             }
             else
             {
-                activeSamples.Add(point);
+                AddSample(point);
             }
         }
     }
@@ -82,25 +84,14 @@ public class PoissonDiscSampler : MonoBehaviour
     {
         RaycastHit hit;
 
-        if(Physics.SphereCast(this.transform.position, cellSize, transform.forward, out hit))
+        if(Physics.SphereCast(this.transform.position, cellSize, transform.forward, out hit) && hit.point != avoidee.transform.position)
         {
 
-            if (vizualizeGizmos)
-            {
-                Debug.DrawRay(this.transform.position, transform.forward, Color.green);
-            }
-
-            return true;
+           return true;
 
         }
         else
         {
-
-            if (vizualizeGizmos)
-            {
-                Debug.DrawRay(this.transform.position, transform.forward, Color.red);
-            }
-
             return false;
         }
     }
