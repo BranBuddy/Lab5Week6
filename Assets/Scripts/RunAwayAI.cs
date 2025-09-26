@@ -56,7 +56,7 @@ public class RunAwayAI : MonoBehaviour
         }
         else
         {
-            Debug.DrawRay(transform.position, transform.forward, Color.green);
+            Debug.DrawRay(transform.position, -transform.forward, Color.green);
             return false;
         }
     }
