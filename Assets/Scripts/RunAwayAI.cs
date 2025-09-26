@@ -17,9 +17,13 @@ public class RunAwayAI : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, player.position) < 10f)
+        if (CheckVisibility())
         {
-            MoveAwayFromPlayer();
+                MoveAwayFromPlayer();
+        } 
+        else
+        {
+            return;
         }
     }
 
@@ -37,6 +41,23 @@ public class RunAwayAI : MonoBehaviour
         if (NavMesh.SamplePosition(bestSpot, out hit, 2f, NavMesh.AllAreas))
         {
             agent.SetDestination(hit.position);
+        }
+    }
+
+    private bool CheckVisibility()
+    {
+        RaycastHit hit;
+
+        if(Physics.Raycast(transform.position, -transform.forward, out hit, 20 ) && hit.collider.gameObject.tag == "Player")
+        {
+            Debug.DrawRay(transform.position, -transform.forward, Color.red);
+                return true;
+
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, transform.forward, Color.green);
+            return false;
         }
     }
 }

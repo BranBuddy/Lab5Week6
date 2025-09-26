@@ -737,8 +737,8 @@ GameObject:
   - component: {fileID: 894836183}
   - component: {fileID: 894836182}
   - component: {fileID: 894836181}
-  - component: {fileID: 894836180}
   - component: {fileID: 894836179}
+  - component: {fileID: 894836185}
   m_Layer: 0
   m_Name: Avoider
   m_TagString: Untagged
@@ -768,30 +768,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &894836180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894836178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10f4175acdfe68948b0c8309087a131e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avoidee: {fileID: 1377768416}
-  agent: {fileID: 894836179}
-  range: 2
-  rect:
-    serializedVersion: 2
-    x: 2
-    y: 3
-    width: 2
-    height: 4
-  radius2: 30
-  cellSize: 20
-  vizualizeGizmos: 1
 --- !u!136 &894836181
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -883,6 +859,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -531.016, z: 0}
+--- !u!114 &894836185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894836178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c7cc8d70e5f304187bf74790a3f4a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 894836179}
+  player: {fileID: 1377768420}
+  radius: 5
+  sampleAreaSize: 20
 --- !u!1 &1377768416
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,7 +891,7 @@ GameObject:
   - component: {fileID: 1377768421}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
